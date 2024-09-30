@@ -1,0 +1,29 @@
+import java.io.*;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+      
+        String filePath = "log-data.csv";
+
+        LogProcessor logProcessor = new LogProcessor();
+
+        try {
+            File file = new File(filePath);
+            Scanner sc = new Scanner(file);
+while (sc.hasNextLine()) {
+                String logLine = sc.nextLine();
+                logProcessor.enqueueLogEntry(logLine);
+            }
+            sc.close();
+
+            // Dequeue and process log entries
+            logProcessor.processLogs();
+
+            // Display analysis
+            logProcessor.printAnalysis();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
